@@ -47,7 +47,7 @@ f1a <- ggplot(df, aes(xmin = left, xmax = right, ymin = down, ymax = up))+
     annotate("segment", x = 4, xend = 4, y = 2, yend = 2.5, lty = 1)+
     annotate("rect", xmin = 51.5, xmax = 122, ymin = -7, ymax = -5.5, fill = "orange", alpha = 0.4)+
     annotate("rect", xmin = 66.5, xmax = 74, ymin = -7, ymax = -5.5, fill = "blue")+
-    annotate("segment", x = 119, xend = 119, y = -5.5, yend = -7, lty = 1, size = 0.7, color = "#D55E00")+
+    annotate("segment", x = 119, xend = 119, y = -5.5, yend = -7, lty = 6, size = 0.7, color = "#D55E00")+
     annotate("text", x = 70.25, y = -7.5, label = "Tone", color = "blue", size = 4)+
     annotate("text", x = 96.5, y = -7.5, label = "Trace", size = 4)+
     annotate("text", x = 59, y = -6.25, label = "10 sec", size = 4)+
@@ -73,16 +73,16 @@ f1b <- ggscatter(training, x = "Time", y = "Mean", size = 1)+
              xend = seq(55, length.out = 7, by = 260), 
              y = -10, yend = 100, color = "#D55E00")+
     geom_smooth(span = 0.1, se = TRUE)+
-    annotate("rect", xmin = 0, xmax = 1820, ymin = 130, ymax = 145, fill = "green", alpha = 0.4)+
-    annotate("rect", xmin = 280, xmax = 700, ymin = 130, ymax = 145, fill = "blue")+
-    annotate("segment", x = 1540, xend = 1540, y = 130, yend = 145, size = 1.5, color = "#D55E00")+
-    annotate("text", x = 490, y = 152, label = "Tone", color = "blue", size = 5)+
-    annotate("text", x = 1540, y = 152, label = "Shock", color = "#D55E00", size = 5)+
-    annotate("text", x = 1120, y = 152, label = "Trace", size = 5)+
-    annotate("text", x = 140, y = 138, label = "10 sec", size = 5)+
-    annotate("text", x = 490, y = 138, label = "15 sec", size = 5, color = "white")+
-    annotate("text", x = 1120, y = 138, label = "30 sec", size = 5)+
-    annotate("text", x = 1680, y = 138, label = "9 sec", size = 5)+
+    annotate("rect", xmin = 0, xmax = 1820, ymin = 130, ymax = 150, fill = "green", alpha = 0.4)+
+    annotate("rect", xmin = 280, xmax = 700, ymin = 130, ymax = 150, fill = "blue")+
+    annotate("segment", x = 1540, xend = 1540, y = 130, yend = 150, size = 1.5, color = "#D55E00")+
+    annotate("text", x = 490, y = 156, label = "Tone", color = "blue", size = 5)+
+    annotate("text", x = 1540, y = 156, label = "Shock", color = "#D55E00", size = 5)+
+    annotate("text", x = 1120, y = 156, label = "Trace", size = 5)+
+    annotate("text", x = 140, y = 140, label = "10 sec", size = 5)+
+    annotate("text", x = 490, y = 140, label = "15 sec", size = 5, color = "white")+
+    annotate("text", x = 1120, y = 140, label = "30 sec", size = 5)+
+    annotate("text", x = 1680, y = 140, label = "9 sec", size = 5)+
     annotate("segment", x = 0, xend = 260, y = 130, yend = 105, lty = 2)+
     annotate("segment", x = 260+65, xend = 1820, y = 105, yend = 130, lty = 2)+
     annotate("segment", x = 260, xend = 260, y = 100, yend = 105, lty = 1)+
@@ -122,14 +122,14 @@ f1c <- ggscatter(test, x = "Time", y = "Freezing", color = "Test", size = 1)+
              xmax = seq(15, length.out = 5, by = 170), 
              ymin = -10, ymax = 50, fill = "blue")+
     geom_smooth(aes(group = Test, color = Test), span = 0.1)+
-    annotate("rect", xmin = 0, xmax = 850, ymin = 70, ymax = 80, fill = "orange", alpha = 0.4)+
-    annotate("rect", xmin = 181, xmax = 271, ymin = 70, ymax = 80, alpha = 1, fill = "blue")+
-    annotate("segment", x = 814, xend = 814, y = 70, yend = 80, lty = 1, size = 0.7, color = "#D55E00")+
-    annotate("text", x = 226, y = 85, label = "Tone", color = "blue", size = 5)+
-    annotate("text", x = 543, y = 85, label = "Trace", size = 5)+
-    annotate("text", x = 90, y = 75, label = "10 sec", size = 5)+
-    annotate("text", x = 226, y = 75, label = "5 sec", size = 5, color = "white")+
-    annotate("text", x = 543, y = 75, label = "30 sec", size = 5)+
+    annotate("rect", xmin = 0, xmax = 850, ymin = 70, ymax = 84, fill = "orange", alpha = 0.4)+
+    annotate("rect", xmin = 181, xmax = 271, ymin = 70, ymax = 84, alpha = 1, fill = "blue")+
+    annotate("segment", x = 814, xend = 814, y = 70, yend = 84, lty = 6, size = 0.7, color = "#D55E00")+
+    annotate("text", x = 226, y = 88, label = "Tone", color = "blue", size = 5)+
+    annotate("text", x = 543, y = 88, label = "Trace", size = 5)+
+    annotate("text", x = 90, y = 77, label = "10 sec", size = 5)+
+    annotate("text", x = 226, y = 77, label = "5 sec", size = 5, color = "white")+
+    annotate("text", x = 543, y = 77, label = "30 sec", size = 5)+
     annotate("segment", x = 0, xend = 170, y = 70, yend = 55, lty = 2)+
     annotate("segment", x = 170+47, xend = 850, y = 55, yend = 70, lty = 2)+
     annotate("segment", x = 170, xend = 170, y = 50, yend = 55, lty = 1)+
