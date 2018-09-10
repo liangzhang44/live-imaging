@@ -150,18 +150,21 @@ model1 <- lm(Discrimination ~ Freezing, data = correlation.aver)
 correlation.all <- left_join(auc.all, freezing.all, by = c("mouse", "Phase", "Trial"))
 model2 <- lm(Discrimination ~ Freezing, data = correlation.all)
 
+# colorblind-friendly palette
+cbPalette <- c("#E69F00", "#56B4E9", "#009E73", 
+               "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 # figure 6a correlation for averaged trials
 f6a <- ggplot(correlation.aver, aes(x = Freezing, y = Discrimination, color = Phase))+
-    geom_point(size = 2, alpha = 0.5)+
+    geom_point(size = 2, alpha = 0.7)+
     geom_hline(yintercept = 0, lty = 2)+
     geom_vline(xintercept = 0, lty = 2)+
     xlim(-1, 1)+
     ylim(-1, 1)+
-    geom_smooth(method = lm, color = "orange")+
+    geom_smooth(method = lm, color = "blue")+
     annotate("text", x = -0.7, y = 0.9, size = 5, 
              label = paste("p =", format(summary(model1)$coefficient[2, 4], digits = 2)))+
-    scale_color_aaas(labels = c("Test 1", "Test 2",
-                                "Test 3", "Test 4"))+
+    scale_color_manual(labels = c("Test 1", "Test 2", "Test 3", "Test 4"),
+                       values = cbPalette)+
     labs(x = "Freezing Discrimination Index", y = "Neuron Activity Discrimination Index",
          title = "Trace Cells (Averaged Trials)")+
     theme_pubr()+
@@ -170,17 +173,17 @@ f6a <- ggplot(correlation.aver, aes(x = Freezing, y = Discrimination, color = Ph
           legend.text = element_text(size = 12))
 
 # figure 6b correlation for all trials
-f6b <- ggplot(correlation.all, aes(x = Freezing, y = Discrimination))+
-    geom_point(aes(color = Phase), size = 2, alpha = 0.5)+
+f6b <- ggplot(correlation.all, aes(x = Freezing, y = Discrimination, color = Phase))+
+    geom_point(size = 2, alpha = 0.7)+
     geom_hline(yintercept = 0, lty = 2)+
     geom_vline(xintercept = 0, lty = 2)+
     xlim(-1, 1)+
     ylim(-1, 1)+
-    geom_smooth(method = lm, color = "orange")+
+    geom_smooth(method = lm, color = "blue")+
     annotate("text", x = -0.7, y = 0.9, size = 5,
              label = paste("p =", format(summary(model2)$coefficient[2, 4], digits = 2)))+
-    scale_color_aaas(labels = c("Test 1", "Test 2",
-                                "Test 3", "Test 4"))+
+    scale_color_manual(labels = c("Test 1", "Test 2", "Test 3", "Test 4"),
+                       values = cbPalette)+
     labs(x = "Freezing Discrimination Index", y = "Neuron Activity Discrimination Index",
          title = "Trace Cells (Individual Trials)")+
     theme_pubr()+
@@ -268,16 +271,16 @@ model2 <- lm(Discrimination ~ Freezing, data = correlation.all)
 
 # figure 6a correlation for averaged trials
 f6c <- ggplot(correlation.aver, aes(x = Freezing, y = Discrimination, color = Phase))+
-    geom_point(size = 2, alpha = 0.5)+
+    geom_point(size = 2, alpha = 0.7)+
     geom_hline(yintercept = 0, lty = 2)+
     geom_vline(xintercept = 0, lty = 2)+
     xlim(-1, 1)+
     ylim(-1, 1)+
-    geom_smooth(method = lm, color = "orange")+
+    geom_smooth(method = lm, color = "blue")+
     annotate("text", x = -0.7, y = 0.9, size = 5, 
              label = paste("p =", format(summary(model1)$coefficient[2, 4], digits = 2)))+
-    scale_color_aaas(labels = c("Test 1", "Test 2",
-                                "Test 3", "Test 4"))+
+    scale_color_manual(labels = c("Test 1", "Test 2", "Test 3", "Test 4"),
+                       values = cbPalette)+
     labs(x = "Freezing Discrimination Index", y = "Neuron Activity Discrimination Index",
          title = "Non-Trace Cells (Averaged Trials)")+
     theme_pubr()+
@@ -286,17 +289,17 @@ f6c <- ggplot(correlation.aver, aes(x = Freezing, y = Discrimination, color = Ph
           legend.text = element_text(size = 12))
 
 # figure 6b correlation for all trials
-f6d <- ggplot(correlation.all, aes(x = Freezing, y = Discrimination))+
-    geom_point(aes(color = Phase), size = 2, alpha = 0.5)+
+f6d <- ggplot(correlation.all, aes(x = Freezing, y = Discrimination, color = Phase))+
+    geom_point(size = 2, alpha = 0.7)+
     geom_hline(yintercept = 0, lty = 2)+
     geom_vline(xintercept = 0, lty = 2)+
     xlim(-1, 1)+
     ylim(-1, 1)+
-    geom_smooth(method = lm, color = "orange")+
+    geom_smooth(method = lm, color = "blue")+
     annotate("text", x = -0.7, y = 0.9, size = 5,
              label = paste("p =", format(summary(model2)$coefficient[2, 4], digits = 2)))+
-    scale_color_aaas(labels = c("Test 1", "Test 2",
-                                "Test 3", "Test 4"))+
+    scale_color_manual(labels = c("Test 1", "Test 2", "Test 3", "Test 4"),
+                       values = cbPalette)+
     labs(x = "Freezing Discrimination Index", y = "Neuron Activity Discrimination Index",
          title = "Non-Trace Cells (Individual Trials)")+
     theme_pubr()+
