@@ -94,41 +94,43 @@ diagram3 <- ggplot(df, aes(xmin = left, xmax = right, ymin = down, ymax = up))+
 cycle2 <- read.csv("./20161122 trace fear extinction 2/28/timelapse_28_0002.csv")
 cycle2 <- cycle2[,c(2, 6, 7)]
 colnames(cycle2) <- c("Time", "Cell4", "Cell5")
-# calculate moving average
-cycle2[2:(dim(cycle2)[1]-1),2] <- rollmean(cycle2[,2],3)
-cycle2[2:(dim(cycle2)[1]-1),3] <- rollmean(cycle2[,3],3)
-cycle2 <- cycle2[2:(dim(cycle2)[1]-1),]
-# fit models
-temp1 <- filter(cycle2, Time < 10 | Time > 63)
-model1 <- try(nls(Cell4 ~ SSasymp(Time, Asym, r0, lrc), data = temp1), silent = TRUE)
-model2 <- try(nls(Cell5 ~ SSasymp(Time, Asym, r0, lrc), data = temp1), silent = TRUE)
-# calculate fitted curves
-curve1 <- cycle2
-curve1$Cell4 <- predict(model1, list(Time = cycle2$Time))
-curve1$Cell5 <- predict(model2, list(Time = cycle2$Time))
+
+for (i in 2:3) {
+    thesub <- cycle2[,c(1,i)]
+    names(thesub) <- c('time','signal')
+    # calculate moving average
+    thesub$signal[2:(dim(thesub)[1]-1)] <- rollmean(thesub$signal, 3)
+    temp <- filter(thesub, time < 10 | time > 63)
+    # fit models
+    model <- try(nls(signal ~ SSasymp(time, Asym, r0, lrc), data = temp), silent = TRUE)
+    # calculate fitted curves
+    fit <- predict(model, list(time = thesub$time))
+    cycle2[,i] <- thesub$signal - fit
+    baseline <- mean(cycle2[cycle2$Time < 10, i])
+    cycle2[,i] <- (cycle2[,i] - baseline)/model$m$getPars()["Asym"]*100
+}
 
 cycle2 <- gather(cycle2, key = "Cell", value = "Fluorescence", -Time)
-curve1 <- gather(curve1, key = "Cell", value = "Fluorescence", -Time)
 
 f2b2 <- ggplot(cycle2, aes(Time, Fluorescence, color = Cell))+
     geom_smooth(span = 0.05, se = FALSE)+
-    geom_line(data = curve1, aes(Time, Fluorescence), lty = 2, lwd = 1.5)+
-    annotate("rect", xmin = 0, xmax = 65, ymin = 330, ymax = 335, fill = "green", alpha = 0.4)+
-    annotate("rect", xmin = 10, xmax = 25, ymin = 330, ymax = 335, fill = "blue")+
-    annotate("rect", xmin = 55, xmax = 56, ymin = 330, ymax = 335, fill = "red")+
-    annotate("text", x = 17.5, y = 338, label = "Tone", color = "blue", size = 4)+
-    annotate("text", x = 55.5, y = 338, label = "Shock", color = "red", size = 4)+
-    annotate("text", x = 40, y = 338, label = "Trace", size = 4)+
+    annotate("rect", xmin = 0, xmax = 65, ymin = -6.5, ymax = -5, fill = "green", alpha = 0.4)+
+    annotate("rect", xmin = 10, xmax = 25, ymin = -6.5, ymax = -5, fill = "blue")+
+    annotate("rect", xmin = 55, xmax = 56, ymin = -6.5, ymax = -5, fill = "red")+
+    annotate("text", x = 17.5, y = -4.5, label = "Tone", color = "blue", size = 4)+
+    annotate("text", x = 55.5, y = -4.5, label = "Shock", color = "red", size = 4)+
+    annotate("text", x = 40, y = -4.5, label = "Trace", size = 4)+
     geom_vline(xintercept = 10, lty = 2, color = "blue")+
     geom_vline(xintercept = 25, lty = 2, color = "blue")+
     geom_vline(xintercept = 55, lty = 2, color = "red")+
     geom_vline(xintercept = 56, lty = 2, color = "red")+
-    annotate("text", x = 62, y = 370, label = "Cell a", color = "darkblue", size = 5)+
-    annotate("text", x = 62, y = 346, label = "Cell b", color = "red", size = 5)+
-    annotate("segment", x = 10.5, xend = 17.5, y = 389, yend = 389,
-             arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
+    geom_hline(yintercept = 0, lty = 2)+
+    annotate("text", x = 40, y = 3, label = "Cell a", color = "darkblue", size = 5)+
+    annotate("text", x = 40, y = -2, label = "Cell b", color = "red", size = 5)+
+    #annotate("segment", x = 10.5, xend = 17.5, y = 389, yend = 389,
+    #         arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
     scale_color_aaas(guide = FALSE)+
-    labs(x = "Time (sec)", y = "Fluorescence (AU)", title = "Training (Session 2)")+
+    labs(x = "Time (sec)", y = expression(Delta*"F/F (%)"), title = "Training (Session 2)")+
     theme_pubr()+
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14),
           plot.title = element_text(size = 16, hjust = 0.5))
@@ -139,50 +141,51 @@ f2b <- ggarrange(diagram1, f2b2, ncol = 1, nrow = 2, heights = c(1, 3))
 cycle6 <- read.csv("./20161122 trace fear extinction 2/28/timelapse_28_0006.csv")
 cycle6 <- cycle6[,c(2, 6, 7)]
 colnames(cycle6) <- c("Time", "Cell4", "Cell5")
-# calculate moving average
-cycle6[2:(dim(cycle6)[1]-1),2] <- rollmean(cycle6[,2],3)
-cycle6[2:(dim(cycle6)[1]-1),3] <- rollmean(cycle6[,3],3)
-cycle6 <- cycle6[2:(dim(cycle6)[1]-1),]
-# fit models
-temp2 <- filter(cycle6, Time < 10 | Time > 63)
-model1 <- try(nls(Cell4 ~ SSasymp(Time, Asym, r0, lrc), data = temp2), silent = TRUE)
-model2 <- try(nls(Cell5 ~ SSasymp(Time, Asym, r0, lrc), data = temp2), silent = TRUE)
-# calculate fitted curves
-curve2 <- cycle6
-curve2$Cell4 <- predict(model1, list(Time = cycle6$Time))
-curve2$Cell5 <- predict(model2, list(Time = cycle6$Time))
+
+for (i in 2:3) {
+    thesub <- cycle6[,c(1,i)]
+    names(thesub) <- c('time','signal')
+    # calculate moving average
+    thesub$signal[2:(dim(thesub)[1]-1)] <- rollmean(thesub$signal, 3)
+    temp <- filter(thesub, time < 10 | time > 63)
+    # fit models
+    model <- try(nls(signal ~ SSasymp(time, Asym, r0, lrc), data = temp), silent = TRUE)
+    # calculate fitted curves
+    fit <- predict(model, list(time = thesub$time))
+    cycle6[,i] <- thesub$signal - fit
+    baseline <- mean(cycle6[cycle6$Time < 10, i])
+    cycle6[,i] <- (cycle6[,i] - baseline)/model$m$getPars()["Asym"]*100
+}
 
 cycle6 <- gather(cycle6, key = "Cell", value = "Fluorescence", -Time)
-curve2 <- gather(curve2, key = "Cell", value = "Fluorescence", -Time)
 
 f2c2 <- ggplot(cycle6, aes(Time, Fluorescence, color = Cell))+
     geom_smooth(span = 0.05, se = FALSE)+
-    geom_line(data = curve2, aes(Time, Fluorescence), lty = 2, lwd = 1.5)+
-    annotate("rect", xmin = 0, xmax = 65, ymin = 295, ymax = 300, fill = "green", alpha = 0.4)+
-    annotate("rect", xmin = 10, xmax = 25, ymin = 295, ymax = 300, fill = "blue")+
-    annotate("rect", xmin = 55, xmax = 56, ymin = 295, ymax = 300, fill = "red")+
-    annotate("text", x = 17.5, y = 303, label = "Tone", color = "blue", size = 4)+
-    annotate("text", x = 55.5, y = 303, label = "Shock", color = "red", size = 4)+
-    annotate("text", x = 40, y = 303, label = "Trace", size = 4)+
+    annotate("rect", xmin = 0, xmax = 65, ymin = -3.5, ymax = -2.5, fill = "green", alpha = 0.4)+
+    annotate("rect", xmin = 10, xmax = 25, ymin = -3.5, ymax = -2.5, fill = "blue")+
+    annotate("rect", xmin = 55, xmax = 56, ymin = -3.5, ymax = -2.5, fill = "red")+
+    annotate("text", x = 17.5, y = -2.2, label = "Tone", color = "blue", size = 4)+
+    annotate("text", x = 55.5, y = -2.2, label = "Shock", color = "red", size = 4)+
+    annotate("text", x = 40, y = -2.2, label = "Trace", size = 4)+
     geom_vline(xintercept = 10, lty = 2, color = "blue")+
     geom_vline(xintercept = 25, lty = 2, color = "blue")+
     geom_vline(xintercept = 55, lty = 2, color = "red")+
     geom_vline(xintercept = 56, lty = 2, color = "red")+
-    annotate("text", x = 62, y = 335, label = "Cell a", color = "darkblue", size = 5)+
-    annotate("text", x = 62, y = 308, label = "Cell b", color = "red", size = 5)+
-    annotate("segment", x = 15, xend = 47, y = 353, yend = 340, 
-             arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
-    annotate("segment", x = 16, xend = 25, y = 335, yend = 330, 
-             arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
-    annotate("segment", x = 58, xend = 62, y = 323, yend = 323, 
-             arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
+    geom_hline(yintercept = 0, lty = 2)+
+    annotate("text", x = 42, y = 3, label = "Cell a", color = "darkblue", size = 5)+
+    annotate("text", x = 42, y = -0.5, label = "Cell b", color = "red", size = 5)+
+    #annotate("segment", x = 15, xend = 47, y = 353, yend = 340, 
+    #         arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
+    #annotate("segment", x = 16, xend = 25, y = 335, yend = 330, 
+    #         arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
+    #annotate("segment", x = 58, xend = 62, y = 323, yend = 323, 
+    #         arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
     scale_color_aaas(guide = FALSE)+
-    labs(x = "Time (sec)", y = "Fluorescence (AU)", title = "Training (Session 6)")+
+    labs(x = "Time (sec)", y = expression(Delta*"F/F (%)"), title = "Training (Session 6)")+
     theme_pubr()+
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 14),
           plot.title = element_text(size = 16, hjust = 0.5))
     
-
 f2c <- ggarrange(diagram2, f2c2, ncol = 1, nrow = 2, heights = c(1, 3))
 
 
@@ -212,7 +215,7 @@ pvalues <- filter(pvalues, p.adj < 0.05)
 
 # figure 2d
 f2d2 <- ggline(training, x = "time", y = "z", add = "mean_se", color = "phase", 
-               numeric.x.axis = TRUE, size = 0.05, error.plot = "upper_errorbar")+
+               numeric.x.axis = TRUE, size = 0.05)+
     annotate("rect", xmin = 0, xmax = 65, ymin = -8, ymax = -6, fill = "green", alpha = 0.4)+
     annotate("rect", xmin = 10, xmax = 25, ymin = -8, ymax = -6, fill = "blue")+
     annotate("rect", xmin = 55, xmax = 56, ymin = -8, ymax = -6, fill = "red")+
