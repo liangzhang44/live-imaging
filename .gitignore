@@ -11,20 +11,6 @@
 *.Rproj
 *.rmd
 *.gif
-20150721 novel object/
-20150721 trace fear conditioning/
-20150813 novel object location/
-20150817 novel object location/
-20160211 trace fear conditioning/
-20160211 trace fear conditioning 2/
-20160302 trace fear conditioning/
-20160302 trace fear conditioning 2/
-20160302 trace fear conditioning 3/
-20161106 trace fear extinction/
-20161112 trace fear extinction/
-20161112 trace fear extinction 2/
-20161115 trace fear extinction/
-20161117 trace fear extinction/
-20161117 trace fear extinction 2/
-20161122 trace fear extinction/
-20161122 trace fear extinction 2/
+*object*/
+*conditioning*/
+*extinction*/
