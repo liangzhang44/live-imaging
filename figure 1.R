@@ -148,4 +148,4 @@ f1c <- ggscatter(test, x = "Time", y = "Freezing", color = "Test", size = 1)+
 figure1 <- ggarrange(f1a, f1b, f1c, labels = c("A", "B", "C"), nrow = 3, ncol = 1)
 figure1 <- annotate_figure(figure1, fig.lab = "Figure 1", fig.lab.face = "bold",
                            fig.lab.size = 14, top = text_grob(""))
-ggsave(figure1, filename = "figure 1.pdf", height = 10, width = 7)
+ggsave(figure1, filename = "figure 1.pdf", height = 25, width = 17.6, units = "cm")
