@@ -98,7 +98,7 @@ for (i in 1:4) {
     scale_fill_manual(values = c("red", "blue", "grey"))+
     xlim("Inhibited", "Unchanged", "Activated")+
     ylim(0, 55)+
-    geom_text(aes(label = get(paste0("test", i))), size = 5, hjust = -0.2)+
+    geom_text(aes(label = get(paste0("test", i))), size = 3, hjust = -0.2)+
     guides(fill = FALSE)+
     ggtitle(paste("Test", i))+
     theme_minimal()+
@@ -107,39 +107,39 @@ for (i in 1:4) {
           panel.border = element_blank(),
           panel.grid = element_blank(),
           axis.ticks = element_blank(),
-          axis.text.y = element_text(size = 12),
-          plot.title = element_text(size = 16, face = "bold", hjust = 0.5)))
+          axis.text.y = element_text(size = 8),
+          plot.title = element_text(size = 10, face = "bold", hjust = 0.4)))
     
     temp <- tests.wide[tests.wide$test == paste0("test", i),]
-    pdf(paste0("figure 4", letters[i], "2.pdf"), height = 8, width = 4)
+    pdf(paste0("figure 4", letters[i], "2.pdf"), height = 6, width = 3)
     hm1 <- Heatmap(temp[, 2:60],col = col, name = paste("Test", i),
                cluster_columns = FALSE,cluster_rows = FALSE,
-               column_title = "Tone", column_title_gp = gpar(fontsize = 20),
+               column_title = "Tone", column_title_gp = gpar(fontsize = 16),
                column_title_side = "bottom", row_title = "Trace Cells",
                show_row_names = FALSE, show_column_names = FALSE,
-               row_title_gp = gpar(fontsize = 18),
+               row_title_gp = gpar(fontsize = 16),
                split = factor(temp$activity, levels = c("Activated", "Unchanged", "Inhibited")), 
-               gap = unit(3, "mm"),
+               gap = unit(2, "mm"),
                bottom_annotation = columnAnnotation(
                    link = column_anno_link(at = c(1, 58), labels = c("10", "15"), 
                                            side = "bottom"), gp = gpar(fontsize = 20)),
-               heatmap_legend_param = list(title_gp = gpar(fontsize=18), 
+               heatmap_legend_param = list(title_gp = gpar(fontsize = 16), 
                                            color_bar = "continuous",
-                                           labels_gp = gpar(fontsize = 18), 
+                                           labels_gp = gpar(fontsize = 13), 
                                            legend_direction = "horizontal",
                                            title_position = "lefttop"))
     hm2 <- Heatmap(temp[, 61:411],col = col, show_heatmap_legend = FALSE,
                cluster_columns = FALSE,cluster_rows = FALSE,
-               column_title = "Trace", column_title_gp = gpar(fontsize = 20),
+               column_title = "Trace", column_title_gp = gpar(fontsize = 16),
                column_title_side = "bottom",
                show_row_names = FALSE, show_column_names = FALSE,
-               row_title_gp = gpar(fontsize = 18),
+               row_title_gp = gpar(fontsize = 16),
                bottom_annotation = columnAnnotation(
                    link = column_anno_link(at = c(1, 60, 118, 177, 236, 295, 351), 
                                            labels = c("16", "20", "25", "30", "35", "40", "45"), 
                                            side = "bottom"), gp = gpar(fontsize = 20)))
     draw(hm1+hm2, column_title = "Time (sec)", column_title_side = "bottom", 
-        column_title_gp = gpar(fontsize = 20), heatmap_legend_side = "top")
+        column_title_gp = gpar(fontsize = 16), heatmap_legend_side = "top")
     dev.off()
     img <- image_read_pdf(paste0("figure 4", letters[i], "2.pdf"))
     temp2 <- ggplot()+
@@ -152,4 +152,4 @@ for (i in 1:4) {
 figure4 <- ggarrange(f4a, f4b, f4c, f4d, labels = c("A", "B", "C", "D"), nrow = 1, ncol = 4)
 figure4 <- annotate_figure(figure4, fig.lab = "Figure 4", fig.lab.face = "bold",
                            fig.lab.size = 14, top = text_grob(""))
-ggsave(figure4, filename = "figure 4.pdf", height = 10, width = 16)
+ggsave(figure4, filename = "figure 4.pdf", height = 11, width = 17.6, units = "cm")
