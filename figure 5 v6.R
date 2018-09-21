@@ -50,7 +50,7 @@ f5a <- ggbarplot(freezing, x = "Phase", y = "Freezing", add = "mean_se", fill = 
     scale_x_discrete(labels = c("Training (1&2)", "Training (6&7)",
                                 "Test 1", "Test 2", "Test 3", "Test 4"))+
     theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1),
-          axis.title.x = element_blank())
+          axis.title.x = element_blank(), axis.text = element_text(size = 10))
 
 
 # normalize training data, first 2 sessions
@@ -183,14 +183,15 @@ f5b <- ggplot(correlation, aes(x = Active, y = Freezing, color = Type))+
     stat_summary(fun.y = mean, geom = "point", size = 1.5)+
     scale_color_manual(values = c("orange", "green"), guide = FALSE)+
     geom_text(data = labels, aes(label = Phase, x = Active - 1, y = Freezing + 3), 
-              size = 4, hjust = 1, color = "black")+
-    annotate("text", x = 9, y = 70, size = 5,
+              size = 3, hjust = 1, color = "black")+
+    annotate("text", x = 9, y = 70, size = 4,
              label = paste("p =", format(summary(model)$coefficient[2, 4], digits = 2)))+
-    xlim(-5, 105)+
+    xlim(-10, 105)+
     theme_pubr()+
-    labs(x = "Activated Trace Cells (%)", y = "Freezing (%)")
+    labs(x = "Activated Trace Cells (%)", y = "Freezing (%)")+
+    theme(axis.text = element_text(size = 10))
 
 figure5 <- ggarrange(f5a, f5b, labels = c("A", "B"), nrow = 2, ncol = 1)
 figure5 <- annotate_figure(figure5, fig.lab = "Figure 5", fig.lab.face = "bold",
                            fig.lab.size = 14, top = text_grob(""))
-ggsave(figure5, filename = "figure 5.pdf", height = 8, width = 5)
+ggsave(figure5, filename = "figure 5.pdf", height = 15, width = 8.5, units = "cm")
