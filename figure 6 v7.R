@@ -155,41 +155,43 @@ cbPalette <- c("#E69F00", "#56B4E9", "#009E73",
                "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 # figure 6a correlation for averaged trials
 f6a <- ggplot(correlation.aver, aes(x = Freezing, y = Discrimination, color = Phase))+
-    geom_point(size = 2, alpha = 0.7)+
+    geom_point(size = 0.5, alpha = 0.7)+
     geom_hline(yintercept = 0, lty = 2)+
     geom_vline(xintercept = 0, lty = 2)+
     xlim(-1, 1)+
     ylim(-1, 1)+
-    geom_smooth(method = lm, color = "blue")+
-    annotate("text", x = -0.7, y = 0.9, size = 5, 
+    geom_smooth(method = lm, color = "blue", size = 0.7)+
+    annotate("text", x = -0.6, y = 0.9, size = 3, 
              label = paste("p =", format(summary(model1)$coefficient[2, 4], digits = 2)))+
     scale_color_manual(labels = c("Test 1", "Test 2", "Test 3", "Test 4"),
                        values = cbPalette)+
     labs(x = "Freezing Discrimination Index", y = "Neuron Activity Discrimination Index",
          title = "Trace Cells (Averaged Trials)")+
     theme_pubr()+
-    theme(legend.title = element_blank(), legend.position = c(0.2, 0.2),
-          plot.title = element_text(size = 14, hjust = 0.5),
-          legend.text = element_text(size = 12))
+    theme(legend.title = element_blank(), legend.position = c(0.2, 0.25),
+          plot.title = element_text(size = 8, hjust = 0.5),
+          axis.title = element_text(size = 7), axis.text = element_text(size = 6),
+          legend.text = element_text(size = 7), legend.key.size = unit(3, "mm"))
 
 # figure 6b correlation for all trials
 f6b <- ggplot(correlation.all, aes(x = Freezing, y = Discrimination, color = Phase))+
-    geom_point(size = 2, alpha = 0.7)+
+    geom_point(size = 0.5, alpha = 0.7)+
     geom_hline(yintercept = 0, lty = 2)+
     geom_vline(xintercept = 0, lty = 2)+
     xlim(-1, 1)+
     ylim(-1, 1)+
-    geom_smooth(method = lm, color = "blue")+
-    annotate("text", x = -0.7, y = 0.9, size = 5,
+    geom_smooth(method = lm, color = "blue", size = 0.7)+
+    annotate("text", x = -0.6, y = 0.9, size = 3,
              label = paste("p =", format(summary(model2)$coefficient[2, 4], digits = 2)))+
     scale_color_manual(labels = c("Test 1", "Test 2", "Test 3", "Test 4"),
                        values = cbPalette)+
     labs(x = "Freezing Discrimination Index", y = "Neuron Activity Discrimination Index",
          title = "Trace Cells (Individual Trials)")+
     theme_pubr()+
-    theme(legend.title = element_blank(), legend.position = c(0.2, 0.2),
-          plot.title = element_text(size = 14, hjust = 0.5),
-          legend.text = element_text(size = 12))
+    theme(legend.title = element_blank(), legend.position = c(0.2, 0.25),
+          plot.title = element_text(size = 8, hjust = 0.5),
+          axis.title = element_text(size = 7), axis.text = element_text(size = 6),
+          legend.text = element_text(size = 7), legend.key.size = unit(3, "mm"))
 
 
 # determine trace cells
@@ -271,45 +273,47 @@ model2 <- lm(Discrimination ~ Freezing, data = correlation.all)
 
 # figure 6a correlation for averaged trials
 f6c <- ggplot(correlation.aver, aes(x = Freezing, y = Discrimination, color = Phase))+
-    geom_point(size = 2, alpha = 0.7)+
+    geom_point(size = 0.5, alpha = 0.7)+
     geom_hline(yintercept = 0, lty = 2)+
     geom_vline(xintercept = 0, lty = 2)+
     xlim(-1, 1)+
     ylim(-1, 1)+
-    geom_smooth(method = lm, color = "blue")+
-    annotate("text", x = -0.7, y = 0.9, size = 5, 
+    geom_smooth(method = lm, color = "blue", size = 0.7)+
+    annotate("text", x = -0.7, y = 0.9, size = 3, 
              label = paste("p =", format(summary(model1)$coefficient[2, 4], digits = 2)))+
     scale_color_manual(labels = c("Test 1", "Test 2", "Test 3", "Test 4"),
                        values = cbPalette)+
     labs(x = "Freezing Discrimination Index", y = "Neuron Activity Discrimination Index",
          title = "Non-Trace Cells (Averaged Trials)")+
     theme_pubr()+
-    theme(legend.title = element_blank(), legend.position = c(0.2, 0.2),
-          plot.title = element_text(size = 14, hjust = 0.5),
-          legend.text = element_text(size = 12))
+    theme(legend.title = element_blank(), legend.position = c(0.2, 0.25),
+          plot.title = element_text(size = 8, hjust = 0.5),
+          axis.title = element_text(size = 7), axis.text = element_text(size = 6),
+          legend.text = element_text(size = 7), legend.key.size = unit(3, "mm"))
 
 # figure 6b correlation for all trials
 f6d <- ggplot(correlation.all, aes(x = Freezing, y = Discrimination, color = Phase))+
-    geom_point(size = 2, alpha = 0.7)+
+    geom_point(size = 0.5, alpha = 0.7)+
     geom_hline(yintercept = 0, lty = 2)+
     geom_vline(xintercept = 0, lty = 2)+
     xlim(-1, 1)+
     ylim(-1, 1)+
-    geom_smooth(method = lm, color = "blue")+
-    annotate("text", x = -0.7, y = 0.9, size = 5,
+    geom_smooth(method = lm, color = "blue", size = 0.7)+
+    annotate("text", x = -0.7, y = 0.9, size = 3,
              label = paste("p =", format(summary(model2)$coefficient[2, 4], digits = 2)))+
     scale_color_manual(labels = c("Test 1", "Test 2", "Test 3", "Test 4"),
                        values = cbPalette)+
     labs(x = "Freezing Discrimination Index", y = "Neuron Activity Discrimination Index",
          title = "Non-Trace Cells (Individual Trials)")+
     theme_pubr()+
-    theme(legend.title = element_blank(), legend.position = c(0.2, 0.2),
-          plot.title = element_text(size = 14, hjust = 0.5),
-          legend.text = element_text(size = 12))
+    theme(legend.title = element_blank(), legend.position = c(0.2, 0.25),
+          plot.title = element_text(size = 8, hjust = 0.5),
+          axis.title = element_text(size = 7), axis.text = element_text(size = 6),
+          legend.text = element_text(size = 7), legend.key.size = unit(3, "mm"))
 
 figure6 <- ggarrange(ggarrange(f6a, f6b, labels = c("A", "B"), nrow = 1, ncol = 2),
                    ggarrange(f6c, f6d, labels = c("C", "D"), nrow = 1, ncol = 2),
                    nrow = 2, ncol = 1)
 figure6 <- annotate_figure(figure6, fig.lab = "Figure 6", fig.lab.face = "bold",
                            fig.lab.size = 14, top = text_grob(""))
-ggsave(figure6, filename = "figure 6.pdf", height = 8, width = 8)
+ggsave(figure6, filename = "figure 6.pdf", height = 11.6, width = 11.6, units = "cm")
