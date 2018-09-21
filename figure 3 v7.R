@@ -42,36 +42,36 @@ late2$type <- ifelse(late2$firing > 10*p, "Trace Cells", "Non-Trace Cells")
 
 # figure 3b
 col <- colorRamp2(c(20, 0, -20), brewer.pal(3, "RdYlBu"))
-pdf("figure 3b.pdf", height = 12, width = 6)
+pdf("figure 3b.pdf", height = 6, width = 3)
 hm1 <- Heatmap(late2[,2:177],col = col, name = "Training (6&7)",
                cluster_columns = FALSE,cluster_rows = FALSE,
-               column_title = "Tone", column_title_gp = gpar(fontsize = 20),
+               column_title = "Tone", column_title_gp = gpar(fontsize = 14),
                column_title_side = "bottom",
                show_row_names = FALSE, show_column_names = FALSE,
-               row_title_gp = gpar(fontsize = 24),
+               row_title_gp = gpar(fontsize = 14),
                split = factor(late2$type, levels = c("Trace Cells", "Non-Trace Cells")), 
-               gap = unit(3, "mm"),
+               gap = unit(2, "mm"),
                bottom_annotation = columnAnnotation(
                    link = column_anno_link(at = c(1, 60, 118, 174), 
                                            labels = c("10", "15", "20", "25"), 
                                            side = "bottom"), gp = gpar(fontsize = 22)),
-               heatmap_legend_param = list(title_gp = gpar(fontsize = 20), 
+               heatmap_legend_param = list(title_gp = gpar(fontsize = 10), 
                                            color_bar = "continuous", 
-                                           labels_gp = gpar(fontsize = 18), 
+                                           labels_gp = gpar(fontsize = 12), 
                                            legend_direction = "horizontal",
                                            title_position = "lefttop"))
 hm2 <- Heatmap(late2[,178:529],col = col, show_heatmap_legend = FALSE,
                cluster_columns = FALSE,cluster_rows = FALSE,
-               column_title = "Trace", column_title_gp = gpar(fontsize = 20),
+               column_title = "Trace", column_title_gp = gpar(fontsize = 14),
                column_title_side = "bottom", 
                show_row_names = FALSE, show_column_names = FALSE,
-               row_title_gp = gpar(fontsize = 24),
+               row_title_gp = gpar(fontsize = 14),
                bottom_annotation = columnAnnotation(
                    link = column_anno_link(at = c(1, 60, 118, 177, 236, 295, 351), 
                                            labels = c("26", "30", "35", "40", "45", "50", "55"), 
                                            side = "bottom"), gp = gpar(fontsize = 22)))
 draw(hm1+hm2, column_title = "Time (sec)", column_title_side = "bottom", 
-     column_title_gp = gpar(fontsize = 20), heatmap_legend_side = "top")
+     column_title_gp = gpar(fontsize = 14), heatmap_legend_side = "top")
 dev.off()
 
 img3b <- image_read_pdf("figure 3b.pdf")
@@ -94,36 +94,36 @@ early2 <- early2 %>%
     arrange(desc(trace.mean), desc(tone.mean))
 
 # figure 3a
-pdf("figure 3a.pdf", height = 12, width = 6)
+pdf("figure 3a.pdf", height = 6, width = 3)
 hm1 <- Heatmap(early2[,2:177],col = col, name = "Training (1&2)",
                cluster_columns = FALSE,cluster_rows = FALSE,
-               column_title = "Tone", column_title_gp = gpar(fontsize = 20),
+               column_title = "Tone", column_title_gp = gpar(fontsize = 14),
                column_title_side = "bottom", row_names_side = "left",
                show_row_names = FALSE, show_column_names = FALSE,
-               row_title_gp = gpar(fontsize = 24),
+               row_title_gp = gpar(fontsize = 14),
                split = factor(early2$type, levels = c("Trace Cells", "Non-Trace Cells")), 
-               gap = unit(3, "mm"),
+               gap = unit(2, "mm"),
                bottom_annotation = columnAnnotation(
                    link = column_anno_link(at = c(1, 60, 118, 174), 
                                            labels = c("10", "15", "20", "25"), 
                                            side = "bottom"), gp = gpar(fontsize = 22)),
-               heatmap_legend_param = list(title_gp=gpar(fontsize=20), 
+               heatmap_legend_param = list(title_gp = gpar(fontsize = 10), 
                                            color_bar = "continuous", 
-                                           labels_gp=gpar(fontsize=18), 
+                                           labels_gp = gpar(fontsize = 12), 
                                            legend_direction = "horizontal",
                                            title_position = "lefttop"))
 hm2 <- Heatmap(early2[,178:529],col = col, show_heatmap_legend = FALSE,
                cluster_columns = FALSE,cluster_rows = FALSE,
-               column_title = "Trace", column_title_gp = gpar(fontsize = 20),
+               column_title = "Trace", column_title_gp = gpar(fontsize = 14),
                column_title_side = "bottom", 
                show_row_names = FALSE, show_column_names = FALSE,
-               row_title_gp = gpar(fontsize = 24),
+               row_title_gp = gpar(fontsize = 14),
                bottom_annotation = columnAnnotation(
                    link = column_anno_link(at = c(1, 60, 118, 177, 236, 295, 351), 
                                            labels = c("26", "30", "35", "40", "45", "50", "55"), 
                                            side = "bottom"), gp = gpar(fontsize = 22)))
 draw(hm1+hm2, column_title = "Time (sec)", column_title_side = "bottom", 
-     column_title_gp = gpar(fontsize = 20), heatmap_legend_side = "top")
+     column_title_gp = gpar(fontsize = 14), heatmap_legend_side = "top")
 dev.off()
 
 img3a <- image_read_pdf("figure 3a.pdf")
@@ -134,4 +134,4 @@ f3a <- ggplot()+
 figure3 <- ggarrange(f3a, f3b, labels = c("A", "B"))
 figure3 <- annotate_figure(figure3, fig.lab = "Figure 3", fig.lab.face = "bold",
                            fig.lab.size = 14, top = text_grob(""))
-ggsave(figure3, filename = "figure 3.pdf", height = 9, width = 9)
+ggsave(figure3, filename = "figure 3.pdf", height = 11.6, width = 11.6, units = "cm")
