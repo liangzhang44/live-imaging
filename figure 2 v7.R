@@ -30,46 +30,40 @@ diagram1 <- ggplot(df, aes(xmin = left, xmax = right, ymin = down, ymax = up))+
     ylim(-6, 10)+
     xlim(-20, 120)+
     theme_void()+
-    geom_rect(fill = c(rep("green", 7), rep("orange", 20)))+
+    geom_rect(fill = c(rep("green", 7), rep("yellow", 20)))+
     annotate("segment", x = 3.5, xend = 3.5, y = 6, yend = 2.5, 
              arrow = arrow(length = unit(0.2, "cm")))+
     annotate("text", x = 10, y = 8, label = "Session 2", size = 3)+
     annotate("segment", x = 14, xend = 46, y = 0, yend = 0)+
-    annotate("segment", x = 55, xend = 67, y = 0, yend = 0)+
-    annotate("segment", x = 76, xend = 88, y = 0, yend = 0)+
-    annotate("segment", x = 97, xend = 109, y = 0, yend = 0)+
+    annotate("segment", x = seq(55, length.out = 3, by = 21), 
+             xend = seq(67, length.out = 3, by = 21), y = 0, yend = 0)+
     annotate("text", x = 7.5, y = -4, label = "Training", size = 2.5)+
-    annotate("text", x = 50.5, y = -4, label = "Test 1", size = 2.5)+
-    annotate("text", x = 71.5, y = -4, label = "Test 2", size = 2.5)+
-    annotate("text", x = 92.5, y = -4, label = "Test 3", size = 2.5)+
-    annotate("text", x = 113.5, y = -4, label = "Test 4", size = 2.5)
+    annotate("text", x = seq(50.5, length.out = 4, by = 21), y = -4, 
+             label = paste("Test", 1:4), size = 2.5)
 
 #diagram for f2c
 diagram2 <- ggplot(df, aes(xmin = left, xmax = right, ymin = down, ymax = up))+
     ylim(-6, 10)+
     xlim(-20, 120)+
     theme_void()+
-    geom_rect(fill = c(rep("green", 7), rep("orange", 20)))+
+    geom_rect(fill = c(rep("green", 7), rep("yellow", 20)))+
     annotate("segment", x = 11.5, xend = 11.5, y = 6, yend = 2.5, 
              arrow = arrow(length = unit(0.2, "cm")))+
     annotate("text", x = 11.5, y = 8, label = "Session 6", size = 3)+
     annotate("segment", x = 14, xend = 46, y = 0, yend = 0)+
-    annotate("segment", x = 55, xend = 67, y = 0, yend = 0)+
-    annotate("segment", x = 76, xend = 88, y = 0, yend = 0)+
-    annotate("segment", x = 97, xend = 109, y = 0, yend = 0)+
+    annotate("segment", x = seq(55, length.out = 3, by = 21), 
+             xend = seq(67, length.out = 3, by = 21), y = 0, yend = 0)+
     annotate("text", x = 7.5, y = -4, label = "Training", size = 2.5)+
-    annotate("text", x = 50.5, y = -4, label = "Test 1", size = 2.5)+
-    annotate("text", x = 71.5, y = -4, label = "Test 2", size = 2.5)+
-    annotate("text", x = 92.5, y = -4, label = "Test 3", size = 2.5)+
-    annotate("text", x = 113.5, y = -4, label = "Test 4", size = 2.5)
+    annotate("text", x = seq(50.5, length.out = 4, by = 21), y = -4, 
+             label = paste("Test", 1:4), size = 2.5)
 
 #diagram for f2d
-pal <- pal_uchicago("default")(7)
+pal <- pal_igv("default")(7)
 diagram3 <- ggplot(df, aes(xmin = left, xmax = right, ymin = down, ymax = up))+
     ylim(-6, 10)+
     xlim(-70, 170)+
     theme_void()+
-    geom_rect(fill = c(rep("green", 7), rep("orange", 20)))+
+    geom_rect(fill = c(rep("green", 7), rep("yellow", 20)))+
     annotate("segment", x = 1.5, xend = 1.5, y = 5.5, yend = 2.5, 
              arrow = arrow(length = unit(0.2, "cm")), color = pal[2])+
     annotate("segment", x = 3.5, xend = 3.5, y = 5.5, yend = 2.5, 
@@ -79,16 +73,13 @@ diagram3 <- ggplot(df, aes(xmin = left, xmax = right, ymin = down, ymax = up))+
     annotate("segment", x = 13.5, xend = 13.5, y = 5.5, yend = 2.5, 
              arrow = arrow(length = unit(0.2, "cm")), color = pal[1])+
     annotate("segment", x = 14, xend = 46, y = 0, yend = 0)+
-    annotate("segment", x = 55, xend = 67, y = 0, yend = 0)+
-    annotate("segment", x = 76, xend = 88, y = 0, yend = 0)+
-    annotate("segment", x = 97, xend = 109, y = 0, yend = 0)+
+    annotate("segment", x = seq(55, length.out = 3, by = 21), 
+             xend = seq(67, length.out = 3, by = 21), y = 0, yend = 0)+
     annotate("text", x = 2.5, y = 7.5, label = "1&2", size = 3, color = pal[2])+
     annotate("text", x = 12.5, y = 7.5, label = "6&7", size = 3, color = pal[1])+
     annotate("text", x = 7.5, y = -4, label = "Training", size = 4)+
-    annotate("text", x = 50.5, y = -4, label = "Test 1", size = 4)+
-    annotate("text", x = 71.5, y = -4, label = "Test 2", size = 4)+
-    annotate("text", x = 92.5, y = -4, label = "Test 3", size = 4)+
-    annotate("text", x = 113.5, y = -4, label = "Test 4", size = 4)
+    annotate("text", x = seq(50.5, length.out = 4, by = 21), y = -4, 
+             label = paste("Test", 1:4), size = 2.5)
 
 # figure 2b
 cycle2 <- read.csv("./20161122 trace fear extinction 2/28/timelapse_28_0002.csv")
@@ -114,21 +105,16 @@ cycle2 <- gather(cycle2, key = "Cell", value = "Fluorescence", -Time)
 
 f2b2 <- ggplot(cycle2, aes(Time, Fluorescence, color = Cell))+
     geom_smooth(span = 0.1, se = FALSE, size = 0.8)+
-    annotate("rect", xmin = 0, xmax = 65, ymin = -7, ymax = -5.5, fill = "green", alpha = 0.4)+
-    annotate("rect", xmin = 10, xmax = 25, ymin = -7, ymax = -5.5, fill = "blue")+
-    annotate("segment", x = 56, xend = 56, y = -7, yend = -5.5, color = "red")+
-    annotate("text", x = 17.5, y = -4.5, label = "Tone", color = "blue", size = 3)+
-    annotate("text", x = 55.5, y = -4.5, label = "Shock", color = "red", size = 3)+
-    annotate("text", x = 40, y = -4.5, label = "Trace", size = 3)+
-    geom_vline(xintercept = 10, lty = 2, color = "blue")+
-    geom_vline(xintercept = 25, lty = 2, color = "blue")+
-    geom_vline(xintercept = 56, lty = 2, color = "red")+
+    annotate("rect", xmin = c(0, 10, 25), xmax = c(65, 25, 55), ymin = -7, ymax = -5.5, 
+             fill = c("green", "#56B4E9", "orange"))+
+    annotate("segment", x = 55.5, xend = 55.5, y = -7, yend = -5.5, color = "red")+
+    annotate("text", x = c(17.5, 40, 55.5), y = -4.5, label = c("Tone", "Trace", "Shock"),
+             color = c("#56B4E9", "orange", "red"), size = 3)+
+    geom_vline(xintercept = c(10, 25, 55.5), lty = 2, color = c("#56B4E9", "#56B4E9", "red"))+
     geom_hline(yintercept = 0, lty = 2)+
     annotate("text", x = 40, y = 3, label = "Cell a", color = "darkblue", size = 3)+
     annotate("text", x = 40, y = -2, label = "Cell b", color = "red", size = 3)+
     expand_limits(y = 5)+
-    #annotate("segment", x = 10.5, xend = 17.5, y = 389, yend = 389,
-    #         arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
     scale_color_aaas(guide = FALSE)+
     labs(x = "Time (sec)", y = expression(Delta*"F/F (%)"), title = "Training (Session 2)")+
     theme_pubr()+
@@ -161,25 +147,16 @@ cycle6 <- gather(cycle6, key = "Cell", value = "Fluorescence", -Time)
 
 f2c2 <- ggplot(cycle6, aes(Time, Fluorescence, color = Cell))+
     geom_smooth(span = 0.1, se = FALSE, size = 0.8)+
-    annotate("rect", xmin = 0, xmax = 65, ymin = -7, ymax = -5.5, fill = "green", alpha = 0.4)+
-    annotate("rect", xmin = 10, xmax = 25, ymin = -7, ymax = -5.5, fill = "blue")+
-    annotate("segment", x = 56, xend = 56, y = -7, yend = -5.5, color = "red")+
-    annotate("text", x = 17.5, y = -4.5, label = "Tone", color = "blue", size = 3)+
-    annotate("text", x = 55.5, y = -4.5, label = "Shock", color = "red", size = 3)+
-    annotate("text", x = 40, y = -4.5, label = "Trace", size = 3)+
-    geom_vline(xintercept = 10, lty = 2, color = "blue")+
-    geom_vline(xintercept = 25, lty = 2, color = "blue")+
-    geom_vline(xintercept = 56, lty = 2, color = "red")+
+    annotate("rect", xmin = c(0, 10, 25), xmax = c(65, 25, 55), ymin = -7, ymax = -5.5, 
+             fill = c("green", "#56B4E9", "orange"))+
+    annotate("segment", x = 55.5, xend = 55.5, y = -7, yend = -5.5, color = "red")+
+    annotate("text", x = c(17.5, 40, 55.5), y = -4.5, label = c("Tone", "Trace", "Shock"),
+             color = c("#56B4E9", "orange", "red"), size = 3)+
+    geom_vline(xintercept = c(10, 25, 55.5), lty = 2, color = c("#56B4E9", "#56B4E9", "red"))+
     geom_hline(yintercept = 0, lty = 2)+
     annotate("text", x = 42, y = 3, label = "Cell a", color = "darkblue", size = 3)+
-    annotate("text", x = 42, y = -0.5, label = "Cell b", color = "red", size = 3)+
+    annotate("text", x = 42, y = -1, label = "Cell b", color = "red", size = 3)+
     expand_limits(y = 5)+
-    #annotate("segment", x = 15, xend = 47, y = 353, yend = 340, 
-    #         arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
-    #annotate("segment", x = 16, xend = 25, y = 335, yend = 330, 
-    #         arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
-    #annotate("segment", x = 58, xend = 62, y = 323, yend = 323, 
-    #         arrow = arrow(length = unit(0.05, "inches"), ends = "both", angle = 90))+
     scale_color_aaas(guide = FALSE)+
     labs(x = "Time (sec)", y = expression(Delta*"F/F (%)"), title = "Training (Session 6)")+
     theme_pubr()+
@@ -215,24 +192,18 @@ pvalues <- filter(pvalues, p.adj < 0.05)
 
 # figure 2d
 f2d2 <- ggplot(training, aes(time, z, color = phase))+
-    stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.5, size = 0.1) +
+    stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.3, size = 0.1) +
     stat_summary(fun.y = mean, geom = "point", size = 0.2)+
-    annotate("rect", xmin = 0, xmax = 65, ymin = -8, ymax = -6, fill = "green", alpha = 0.4)+
-    annotate("rect", xmin = 10, xmax = 25, ymin = -8, ymax = -6, fill = "blue")+
-    annotate("rect", xmin = 55, xmax = 56, ymin = -8, ymax = -6, fill = "red")+
-    annotate("text", x = 17.5, y = -4.5, label = "Tone", color = "blue", size = 4)+
-    annotate("text", x = 55.5, y = -4.5, label = "Shock", color = "red", size = 4)+
-    annotate("text", x = 40, y = -4.5, label = "Trace", size = 4)+
-    #annotate("text", x = 63, y = -4, label = "Training (1&2)", size = 5, color = pal[1])+
-    #annotate("text", x = 63, y = 6, label = "Training (6&7)", size = 5, color = pal[2])+
-    geom_vline(xintercept = 10, lty = 2, color = "blue")+
-    geom_vline(xintercept = 25, lty = 2, color = "blue")+
-    geom_vline(xintercept = 55, lty = 2, color = "red")+
-    geom_vline(xintercept = 56, lty = 2, color = "red")+
+    annotate("rect", xmin = c(0, 10, 25, 55), xmax = c(65, 25, 55, 56), ymin = -8, 
+             ymax = -6, fill = c("green", "#56B4E9", "orange", "red"))+
+    annotate("text", x = c(17.5, 40, 55.5), y = -4.5, label = c("Tone", "Trace", "Shock"),
+             color = c("#56B4E9", "orange", "red"), size = 4)+
+    geom_vline(xintercept = c(10, 25, 55, 56), lty = 2, 
+               color = c("#56B4E9", "#56B4E9", "red", "red"))+
     geom_hline(yintercept = 0, lty = 2)+
     annotate("text", x = pvalues$time, y = 10, label = "*", size = 4)+
     labs(x = "Time (sec)", y= "Z Score")+
-    scale_color_uchicago()+
+    scale_color_igv()+
     theme_pubr()+
     theme(axis.text = element_text(size = 10), axis.title = element_text(size = 10),
           legend.title = element_blank(), legend.text = element_text(size = 8),
