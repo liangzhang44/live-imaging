@@ -103,17 +103,22 @@ for (i in 2:3) {
 
 cycle2 <- gather(cycle2, key = "Cell", value = "Fluorescence", -Time)
 
+labels_1 <- data.frame(x = c(17.5, 40, 55.5), y = -5, 
+                       label = c("Tone", "Trace", "Shock"))
+
 f2b2 <- ggplot(cycle2, aes(Time, Fluorescence, color = Cell))+
-    geom_smooth(span = 0.1, se = FALSE, size = 0.8)+
-    annotate("rect", xmin = c(10, 25), xmax = c(25, 55), ymin = -7, ymax = -5.5, 
-             fill = c("#56B4E9", "orange"))+
-    annotate("segment", x = 55.5, xend = 55.5, y = -7, yend = -5.5, color = "red")+
-    annotate("rect", xmin = 0, xmax = 65, ymin = -7, ymax = -5.5,
-             color = "black", alpha = 0)+
-    annotate("text", x = c(17.5, 40, 55.5), y = -4.5, label = c("Tone", "Trace", "Shock"),
-             color = c("#56B4E9", "orange", "red"), size = 3)+
-    geom_vline(xintercept = c(10, 25, 55.5), lty = 2, color = c("#56B4E9", "#56B4E9", "red"))+
+    geom_vline(xintercept = c(10, 25, 55.5), lty = 5, 
+               color = c("#56B4E9", "#56B4E9", "red"))+
     geom_hline(yintercept = 0, lty = 2)+
+    geom_label(data = labels_1, mapping = aes(x, y, label = label), 
+               color = c("#56B4E9", "orange", "red"), size = 3, 
+               label.padding = unit(0.01, "line"), label.size = NA)+
+    geom_smooth(span = 0.1, se = FALSE, size = 0.7)+
+    annotate("rect", xmin = c(10, 25), xmax = c(25, 55), ymin = -7.5, ymax = -6, 
+             fill = c("#56B4E9", "orange"))+
+    annotate("segment", x = 55.5, xend = 55.5, y = -7.5, yend = -6, color = "red")+
+    annotate("rect", xmin = 0, xmax = 65, ymin = -7.5, ymax = -6,
+             color = "black", alpha = 0)+
     annotate("text", x = 40, y = 3, label = "Cell a", color = "darkblue", size = 3)+
     annotate("text", x = 40, y = -2, label = "Cell b", color = "red", size = 3)+
     expand_limits(y = 5)+
@@ -148,16 +153,18 @@ for (i in 2:3) {
 cycle6 <- gather(cycle6, key = "Cell", value = "Fluorescence", -Time)
 
 f2c2 <- ggplot(cycle6, aes(Time, Fluorescence, color = Cell))+
-    geom_smooth(span = 0.1, se = FALSE, size = 0.8)+
-    annotate("rect", xmin = c(10, 25), xmax = c(25, 55), ymin = -7, ymax = -5.5, 
-             fill = c("#56B4E9", "orange"))+
-    annotate("segment", x = 55.5, xend = 55.5, y = -7, yend = -5.5, color = "red")+
-    annotate("rect", xmin = 0, xmax = 65, ymin = -7, ymax = -5.5,
-             color = "black", alpha = 0)+
-    annotate("text", x = c(17.5, 40, 55.5), y = -4.5, label = c("Tone", "Trace", "Shock"),
-             color = c("#56B4E9", "orange", "red"), size = 3)+
-    geom_vline(xintercept = c(10, 25, 55.5), lty = 2, color = c("#56B4E9", "#56B4E9", "red"))+
+    geom_vline(xintercept = c(10, 25, 55.5), lty = 5, 
+               color = c("#56B4E9", "#56B4E9", "red"))+
     geom_hline(yintercept = 0, lty = 2)+
+    geom_label(data = labels_1, mapping = aes(x, y, label = label),
+               color = c("#56B4E9", "orange", "red"), size = 3, 
+               label.padding = unit(0.01, "line"), label.size = NA)+
+    geom_smooth(span = 0.1, se = FALSE, size = 0.7)+
+    annotate("rect", xmin = c(10, 25), xmax = c(25, 55), ymin = -7.5, ymax = -6, 
+             fill = c("#56B4E9", "orange"))+
+    annotate("segment", x = 55.5, xend = 55.5, y = -7.5, yend = -6, color = "red")+
+    annotate("rect", xmin = 0, xmax = 65, ymin = -7.5, ymax = -6,
+             color = "black", alpha = 0)+
     annotate("text", x = 42, y = 3, label = "Cell a", color = "darkblue", size = 3)+
     annotate("text", x = 42, y = -1, label = "Cell b", color = "red", size = 3)+
     expand_limits(y = 5)+
@@ -193,20 +200,22 @@ training$phase <- factor(training$phase,
 pvalues <- compare_means(z ~ phase, data = training[training$phase %in% c("Sessions 1&2", "Sessions 6&7"),], 
                          group.by = "time", paired = TRUE, p.adjust.method = "BH")
 pvalues <- filter(pvalues, p.adj < 0.05)
-
+labels_2 <- data.frame(x = c(17.5, 40, 55.5), y = -4.5, 
+                            label = c("Tone", "Trace", "Shock"))
 # figure 2d
 f2d2 <- ggplot(training, aes(time, z, color = phase))+
+    geom_hline(yintercept = 0, lty = 2)+
+    geom_vline(xintercept = c(10, 25, 55, 56), lty = 5, 
+               color = c("#56B4E9", "#56B4E9", "red", "red"))+
+    geom_label(data = labels_2, mapping = aes(x, y, label = label),
+               color = c("#56B4E9", "orange", "red"), size = 3, 
+               label.padding = unit(0.01, "line"), label.size = NA)+
     stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.3, size = 0.1) +
     stat_summary(fun.y = mean, geom = "point", size = 0.2)+
     annotate("rect", xmin = c(10, 25, 55), xmax = c(25, 55, 56), ymin = -8, 
              ymax = -6, fill = c("#56B4E9", "orange", "red"))+
     annotate("rect", xmin = 0, xmax = 65, ymin = -8, ymax = -6,
              color = "black", alpha = 0)+
-    annotate("text", x = c(17.5, 40, 55.5), y = -4.5, label = c("Tone", "Trace", "Shock"),
-             color = c("#56B4E9", "orange", "red"), size = 4)+
-    geom_vline(xintercept = c(10, 25, 55, 56), lty = 2, 
-               color = c("#56B4E9", "#56B4E9", "red", "red"))+
-    geom_hline(yintercept = 0, lty = 2)+
     annotate("text", x = pvalues$time, y = 10, label = "*", size = 4)+
     labs(x = "Time (sec)", y= "Z Score")+
     scale_color_igv()+
