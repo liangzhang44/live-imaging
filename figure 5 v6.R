@@ -45,7 +45,7 @@ freezing$Type[1:10] <- "Training"
 
 # figure 5a average freezing
 f5a <- ggbarplot(freezing, x = "Phase", y = "Freezing", add = "mean_se", fill = "Type")+
-    scale_fill_manual(values = c( "orange", "green"), guide = FALSE)+
+    scale_fill_aaas(guide = FALSE)+
     labs(y = "Freezing (%)")+
     scale_x_discrete(labels = c("Training (1&2)", "Training (6&7)",
                                 "Test 1", "Test 2", "Test 3", "Test 4"))+
@@ -174,14 +174,14 @@ labels$Type[5:6] <- "Training"
 
 # calculate correlation
 model <- lm(Freezing ~ Active, data = correlation)
-summary(model) # R-squared: 0.39, p: 0.0002
+summary(model) # R-squared: 0.55, p: 1.7e-6
 
 # figure 5b correlation plot
 f5b <- ggplot(correlation, aes(x = Active, y = Freezing, color = Type))+
-    stat_smooth(method = lm, color = "blue")+
+    stat_smooth(method = lm, color = "orange")+
     stat_summary(fun.data = mean_se, geom = "errorbar", width = 3) +
     stat_summary(fun.y = mean, geom = "point", size = 1.5)+
-    scale_color_manual(values = c("orange", "green"), guide = FALSE)+
+    scale_color_aaas(guide = FALSE)+
     geom_text(data = labels, aes(label = Phase, x = Active - 1, y = Freezing + 3), 
               size = 3, hjust = 1, color = "black")+
     annotate("text", x = 9, y = 70, size = 4,
